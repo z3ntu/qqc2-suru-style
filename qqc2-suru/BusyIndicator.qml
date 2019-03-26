@@ -22,6 +22,8 @@
 ****************************************************************************/
 
 import QtQuick 2.9
+import QtQuick.Controls 2.3
+import QtQuick.Controls.impl 2.3
 import QtQuick.Templates 2.2 as T
 import QtQuick.Controls.Suru 2.2
 
@@ -31,11 +33,12 @@ T.BusyIndicator {
     implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
     implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
 
-    contentItem: Image {
+    contentItem: ColorImage {
         width: control.Suru.units.gu(12)
         height: control.Suru.units.gu(12)
 
-        source: "image://suru/spinner/" + control.Suru.highlightColor
+        color: control.Suru.highlightColor
+        source: "qrc:/qt-project.org/imports/QtQuick/Controls.2/Suru/assets/spinner.png"
         opacity: running ? 1.0 : 0.0
 
         RotationAnimator on rotation {

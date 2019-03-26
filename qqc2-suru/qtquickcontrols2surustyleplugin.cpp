@@ -28,15 +28,7 @@
 #include "qquicksuruanimations.h"
 #include "qquicksuruunits.h"
 
-#include <QtQuickControls2/private/qquickcolorimageprovider_p.h>
-
-static inline void initResources()
-{
-    Q_INIT_RESOURCE(qtquickcontrols2surustyleplugin);
-#ifdef QT_STATIC
-    Q_INIT_RESOURCE(qmake_QtQuick_Controls_2_Suru);
-#endif
-}
+#include <QQmlEngine>
 
 class QtQuickControls2SuruStylePlugin: public QQuickStylePlugin
 {
@@ -47,15 +39,13 @@ public:
     QtQuickControls2SuruStylePlugin(QObject *parent = nullptr);
 
     void registerTypes(const char *uri) override;
-    void initializeEngine(QQmlEngine *engine, const char *uri) override;
 
     QString name() const override;
-    QQuickProxyTheme *createTheme() const override;
+    void initializeTheme(QQuickTheme *theme) override;
 };
 
 QtQuickControls2SuruStylePlugin::QtQuickControls2SuruStylePlugin(QObject *parent) : QQuickStylePlugin(parent)
 {
-    initResources();
 }
 
 void QtQuickControls2SuruStylePlugin::registerTypes(const char *uri)
@@ -65,21 +55,14 @@ void QtQuickControls2SuruStylePlugin::registerTypes(const char *uri)
     qmlRegisterUncreatableType<QQuickSuruStyle>(uri, 2, 2, "Suru", tr("Suru is an attached property"));
 }
 
-void QtQuickControls2SuruStylePlugin::initializeEngine(QQmlEngine *engine, const char *uri)
-{
-    QQuickStylePlugin::initializeEngine(engine, uri);
-
-    engine->addImageProvider(name(), new QQuickColorImageProvider(QStringLiteral(":/qt-project.org/imports/QtQuick/Controls.2/Suru/assets")));
-}
-
 QString QtQuickControls2SuruStylePlugin::name() const
 {
     return QStringLiteral("suru");
 }
 
-QQuickProxyTheme *QtQuickControls2SuruStylePlugin::createTheme() const
+void QtQuickControls2SuruStylePlugin::initializeTheme(QQuickTheme *theme)
 {
-    return new QQuickSuruTheme;
+    QQuickSuruTheme::initialize(theme);
 }
 
 #include "qtquickcontrols2surustyleplugin.moc"
