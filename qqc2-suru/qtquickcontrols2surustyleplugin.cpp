@@ -50,9 +50,21 @@ QtQuickControls2SuruStylePlugin::QtQuickControls2SuruStylePlugin(QObject *parent
 
 void QtQuickControls2SuruStylePlugin::registerTypes(const char *uri)
 {
+    qmlRegisterModule(uri, 2, 2);
+    qmlRegisterUncreatableType<QQuickSuruStyle>(uri, 2, 2, "Suru", tr("Suru is an attached property"));
+
+    qmlRegisterModule(uri, 2, 2);
+
     qmlRegisterType<QQuickSuruAnimations>();
     qmlRegisterType<QQuickSuruUnits>();
-    qmlRegisterUncreatableType<QQuickSuruStyle>(uri, 2, 2, "Suru", tr("Suru is an attached property"));
+    qmlRegisterType(resolvedUrl(QStringLiteral("CheckIndicator.qml")), uri, 2, 0, "CheckIndicator");
+    qmlRegisterType(resolvedUrl(QStringLiteral("CursorDelegate.qml")), uri, 2, 0, "CursorDelegate");
+    qmlRegisterType(resolvedUrl(QStringLiteral("ElevationEffect.qml")), uri, 2, 0, "ElevationEffect");
+    qmlRegisterType(resolvedUrl(QStringLiteral("HighlightFocusRectangle.qml")), uri, 2, 0, "HighlightFocusRectangle");
+    qmlRegisterType(resolvedUrl(QStringLiteral("Label.qml")), uri, 2, 0, "Label");
+    qmlRegisterType(resolvedUrl(QStringLiteral("RadioIndicator.qml")), uri, 2, 0, "RadioIndicator");
+    qmlRegisterType(resolvedUrl(QStringLiteral("SwitchIndicator.qml")), uri, 2, 0, "SwitchIndicator");
+
 }
 
 QString QtQuickControls2SuruStylePlugin::name() const
